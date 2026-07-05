@@ -1,22 +1,35 @@
-public class Brute_force {
-    public static void main(String[] args) {
-        int[] arr = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
-        int bestSum = arr[0];
-        int start = 0, end = 0;
+import java.util.*;
+public class Brute_force{
+    public static int maxSubArraySum(int arr[]){
+        int currsum = 0;
+        int maxSum = Integer.MIN_VALUE; 
+        for(int i=0;i<arr.length;i++){
+            int start = i;
+            
 
-        for (int i = 0; i < arr.length; i++) {
-            int currentSum = 0;
-            for (int j = i; j < arr.length; j++) {
-                currentSum += arr[j];
-                if (currentSum > bestSum) {
-                    bestSum = currentSum;
-                    start = i;
-                    end = j;
+            for(int j=i;j<arr.length;j++){
+                int end = j;
+                currsum=0;
+                for(int k=start;k<=end;k++){
+                    currsum+=arr[k];
+                }
+                if(maxSum<currsum){
+                    maxSum=currsum;
                 }
             }
         }
-
-        System.out.println("Maximum subarray sum: " + bestSum);
-        System.out.println("Subarray from " + start + " to " + end);
+        return maxSum;
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the size of the array");
+        int n = sc.nextInt();
+        int arr[] = new int[n];
+        System.out.println("Enter the elements of the array");
+        for(int i=0;i<n;i++){
+            arr[i]= sc.nextInt();
+        }
+        System.out.println(maxSubArraySum(arr));
+        sc.close();
     }
 }
